@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import { User, Settings, LogOut, ChevronDown, Shield } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,6 +9,7 @@ const UserMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { user, logout, isAdmin } = useAuth();
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const menuRef = useRef(null);
 
     // Close menu when clicking outside
@@ -94,14 +96,14 @@ const UserMenu = () => {
                                 className="w-full px-4 py-2 text-left flex items-center gap-3 hover:bg-gray-50 transition-colors text-gray-700"
                             >
                                 <User size={18} />
-                                <span>Dashboard</span>
+                                <span>{t('userMenu.dashboard')}</span>
                             </button>
                             <button
                                 onClick={handleEditProfile}
                                 className="w-full px-4 py-2 text-left flex items-center gap-3 hover:bg-gray-50 transition-colors text-gray-700"
                             >
                                 <Settings size={18} />
-                                <span>Edit Profile</span>
+                                <span>{t('userMenu.editProfile')}</span>
                             </button>
                             {isAdmin() && (
                                 <button
@@ -109,7 +111,7 @@ const UserMenu = () => {
                                     className="w-full px-4 py-2 text-left flex items-center gap-3 hover:bg-purple-50 transition-colors text-purple-700 border-t border-gray-100 mt-2 pt-2"
                                 >
                                     <Shield size={18} />
-                                    <span className="font-medium">Admin Panel</span>
+                                    <span className="font-medium">{t('userMenu.adminPanel')}</span>
                                 </button>
                             )}
                         </div>
@@ -121,7 +123,7 @@ const UserMenu = () => {
                                 className="w-full px-4 py-2 text-left flex items-center gap-3 hover:bg-red-50 transition-colors text-red-600"
                             >
                                 <LogOut size={18} />
-                                <span>Sign Out</span>
+                                <span>{t('userMenu.signOut')}</span>
                             </button>
                         </div>
                     </motion.div>

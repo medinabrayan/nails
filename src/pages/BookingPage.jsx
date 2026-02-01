@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -10,6 +11,7 @@ import BookingSummary from '../components/booking/BookingSummary';
 import PaymentButton from '../components/booking/PaymentButton';
 
 const BookingPage = () => {
+    const { t } = useTranslation();
     const { professionalId, serviceId } = useParams();
     const navigate = useNavigate();
 
@@ -110,7 +112,7 @@ const BookingPage = () => {
 
     const handlePaymentError = (error) => {
         console.error('Payment failed:', error);
-        alert('Payment failed. Please try again.');
+        alert(t('common.error'));
     };
 
     const isBookingComplete = selectedDate && selectedTime && selectedService;
@@ -136,10 +138,10 @@ const BookingPage = () => {
                         className="flex items-center gap-2 text-white/90 hover:text-white mb-4 transition-colors"
                     >
                         <ArrowLeft className="w-5 h-5" />
-                        <span>Back</span>
+                        <span>{t('booking.back')}</span>
                     </button>
-                    <h1 className="text-3xl md:text-4xl font-serif font-bold mb-2">Book Your Appointment</h1>
-                    <p className="text-primary-100">Choose your preferred date, time, and service</p>
+                    <h1 className="text-3xl md:text-4xl font-serif font-bold mb-2">{t('booking.title')}</h1>
+                    <p className="text-primary-100">{t('booking.subtitle')}</p>
                 </div>
             </div>
 
@@ -155,7 +157,7 @@ const BookingPage = () => {
                                     }`}>
                                     {selectedService ? <CheckCircle2 className="w-5 h-5" /> : '1'}
                                 </div>
-                                <h2 className="text-xl font-serif font-bold text-gray-900">Select Service</h2>
+                                <h2 className="text-xl font-serif font-bold text-gray-900">{t('booking.selectService')}</h2>
                             </div>
 
                             <div className="grid md:grid-cols-2 gap-4">
@@ -188,7 +190,7 @@ const BookingPage = () => {
                                     }`}>
                                     {selectedDate ? <CheckCircle2 className="w-5 h-5" /> : '2'}
                                 </div>
-                                <h2 className="text-xl font-serif font-bold text-gray-900">Select Date</h2>
+                                <h2 className="text-xl font-serif font-bold text-gray-900">{t('booking.selectDate')}</h2>
                             </div>
                             <BookingCalendar
                                 selectedDate={selectedDate}
@@ -204,7 +206,7 @@ const BookingPage = () => {
                                     }`}>
                                     {selectedTime ? <CheckCircle2 className="w-5 h-5" /> : '3'}
                                 </div>
-                                <h2 className="text-xl font-serif font-bold text-gray-900">Select Time</h2>
+                                <h2 className="text-xl font-serif font-bold text-gray-900">{t('booking.selectTime')}</h2>
                             </div>
                             <TimeSlotPicker
                                 selectedDate={selectedDate}
@@ -221,11 +223,11 @@ const BookingPage = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
                             >
-                                <h3 className="font-semibold text-gray-900 mb-3">Additional Notes (Optional)</h3>
+                                <h3 className="font-semibold text-gray-900 mb-3">{t('booking.additionalNotes')}</h3>
                                 <textarea
                                     value={additionalNotes}
                                     onChange={(e) => setAdditionalNotes(e.target.value)}
-                                    placeholder="Any special requests or preferences..."
+                                    placeholder={t('booking.notesPlaceholder')}
                                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-primary-400 focus:outline-none resize-none"
                                     rows="3"
                                 />
@@ -238,7 +240,7 @@ const BookingPage = () => {
                         <div className="sticky top-24 space-y-6">
                             {/* Professional Info */}
                             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                                <h3 className="font-semibold text-gray-900 mb-4">Your Professional</h3>
+                                <h3 className="font-semibold text-gray-900 mb-4">{t('booking.yourProfessional')}</h3>
                                 <div className="flex items-center gap-3">
                                     <img
                                         src={professional.image}
@@ -260,39 +262,39 @@ const BookingPage = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
                                 >
-                                    <h3 className="font-semibold text-gray-900 mb-4">Booking Summary</h3>
+                                    <h3 className="font-semibold text-gray-900 mb-4">{t('booking.bookingSummary')}</h3>
                                     <div className="space-y-3 mb-4">
                                         <div className="flex justify-between text-sm">
-                                            <span className="text-gray-600">Service</span>
+                                            <span className="text-gray-600">{t('common.price')}</span>
                                             <span className="font-medium text-gray-900">{selectedService.name}</span>
                                         </div>
                                         <div className="flex justify-between text-sm">
-                                            <span className="text-gray-600">Date</span>
+                                            <span className="text-gray-600">{t('booking.calendar.selectDate')}</span>
                                             <span className="font-medium text-gray-900">
                                                 {selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                                             </span>
                                         </div>
                                         <div className="flex justify-between text-sm">
-                                            <span className="text-gray-600">Time</span>
+                                            <span className="text-gray-600">{t('booking.selectTime')}</span>
                                             <span className="font-medium text-gray-900">{selectedTime}</span>
                                         </div>
                                         <div className="flex justify-between text-sm">
-                                            <span className="text-gray-600">Duration</span>
-                                            <span className="font-medium text-gray-900">{selectedService.duration} min</span>
+                                            <span className="text-gray-600">{t('booking.duration')}</span>
+                                            <span className="font-medium text-gray-900">{selectedService.duration} {t('common.minutes')}</span>
                                         </div>
                                     </div>
 
                                     <div className="border-t border-gray-200 pt-4 space-y-2">
                                         <div className="flex justify-between text-sm">
-                                            <span className="text-gray-600">Service Price</span>
+                                            <span className="text-gray-600">{t('common.price')}</span>
                                             <span className="font-medium">${selectedService.price.toFixed(2)}</span>
                                         </div>
                                         <div className="flex justify-between text-sm">
-                                            <span className="text-gray-600">Service Fee</span>
+                                            <span className="text-gray-600">{t('booking.serviceFee')}</span>
                                             <span className="font-medium">${(selectedService.price * 0.05).toFixed(2)}</span>
                                         </div>
                                         <div className="flex justify-between text-lg font-bold pt-2 border-t border-gray-200">
-                                            <span>Total</span>
+                                            <span>{t('booking.total')}</span>
                                             <span className="text-primary-600">${totalAmount.toFixed(2)}</span>
                                         </div>
                                     </div>
@@ -302,7 +304,7 @@ const BookingPage = () => {
                                             onClick={handleContinue}
                                             className="w-full px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-xl font-semibold shadow-lg shadow-primary-200 hover:shadow-xl transition-all"
                                         >
-                                            Review & Pay
+                                            {t('booking.reviewAndPay')}
                                         </button>
                                     </div>
                                 </motion.div>

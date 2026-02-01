@@ -3,11 +3,14 @@ import { Menu, X, Calendar, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from '../shared/LanguageSelector';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const { isAuthenticated } = useAuth();
+    const { t } = useTranslation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -18,10 +21,10 @@ const Navbar = () => {
     }, []);
 
     const navLinks = [
-        { name: 'Home', href: '#home' },
-        { name: 'Services', href: '#services' },
-        { name: 'Gallery', href: '#gallery' },
-        { name: 'Testimonials', href: '#testimonials' },
+        { name: t('nav.home'), href: '#home' },
+        { name: t('nav.services'), href: '#services' },
+        { name: t('nav.gallery'), href: '#gallery' },
+        { name: t('nav.testimonials'), href: '#testimonials' },
     ];
 
     return (
@@ -39,23 +42,25 @@ const Navbar = () => {
                         </a>
                     ))}
                     <Link to="/search" className="text-secondary-900 hover:text-primary-600 font-medium transition-colors">
-                        Find Artists
+                        {t('nav.findArtists')}
                     </Link>
 
                     {isAuthenticated ? (
                         <Link to="/dashboard" className="text-secondary-900 hover:text-primary-600 font-medium transition-colors flex items-center gap-2">
                             <User size={18} />
-                            Dashboard
+                            {t('nav.dashboard')}
                         </Link>
                     ) : (
                         <Link to="/login" className="text-secondary-900 hover:text-primary-600 font-medium transition-colors">
-                            Login
+                            {t('nav.login')}
                         </Link>
                     )}
 
+                    <LanguageSelector />
+
                     <a href="#booking" className="bg-primary-600 text-white px-6 py-2 rounded-full font-medium hover:bg-primary-700 transition-colors flex items-center gap-2">
                         <Calendar size={18} />
-                        Book Now
+                        {t('nav.bookNow')}
                     </a>
                 </div>
 
@@ -74,7 +79,7 @@ const Navbar = () => {
                         exit={{ opacity: 0, height: 0 }}
                         className="md:hidden bg-white border-t border-gray-100 overflow-hidden"
                     >
-                        <div className="flex flex-col p-4 space-y-4">
+                    <div className="flex flex-col p-4 space-y-4">
                             {navLinks.map((link) => (
                                 <a
                                     key={link.name}
@@ -90,7 +95,7 @@ const Navbar = () => {
                                 className="text-secondary-900 font-medium hover:text-primary-600"
                                 onClick={() => setIsOpen(false)}
                             >
-                                Find Artists
+                                {t('nav.findArtists')}
                             </Link>
 
                             {isAuthenticated ? (
@@ -100,7 +105,7 @@ const Navbar = () => {
                                     onClick={() => setIsOpen(false)}
                                 >
                                     <User size={18} />
-                                    Dashboard
+                                    {t('nav.dashboard')}
                                 </Link>
                             ) : (
                                 <Link
@@ -108,16 +113,20 @@ const Navbar = () => {
                                     className="text-secondary-900 font-medium hover:text-primary-600"
                                     onClick={() => setIsOpen(false)}
                                 >
-                                    Login
+                                    {t('nav.login')}
                                 </Link>
                             )}
+
+                            <div className="border-t border-gray-100 pt-4">
+                                <LanguageSelector />
+                            </div>
 
                             <a
                                 href="#booking"
                                 className="bg-primary-600 text-white px-6 py-2 rounded-full font-medium hover:bg-primary-700 transition-colors text-center"
                                 onClick={() => setIsOpen(false)}
                             >
-                                Book Now
+                                {t('nav.bookNow')}
                             </a>
                         </div>
                     </motion.div>

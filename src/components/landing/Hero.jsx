@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const Hero = () => {
     const navigate = useNavigate();
     const { user } = useAuth();
+    const { t } = useTranslation();
 
     const handleAction = (path) => {
         if (user) {
@@ -36,15 +38,14 @@ const Hero = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <h2 className="text-lg md:text-xl font-medium tracking-[0.2em] uppercase mb-4 text-primary-200">
-                        Premium Nail Care
+                        {t('hero.premiumNailCare')}
                     </h2>
                     <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
-                        Beauty at Your <br />
-                        <span className="text-primary-300">Fingertips</span>
+                        {t('hero.titleLine1')} <br />
+                        <span className="text-primary-300">{t('hero.titleLine2')}</span>
                     </h1>
                     <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-10 font-light">
-                        Indulge in a luxurious experience where art meets wellness.
-                        We bring your dream designs to life with precision and care.
+                        {t('hero.description')}
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -52,13 +53,13 @@ const Hero = () => {
                             onClick={() => handleAction('/offers')}
                             className="px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white rounded-full font-medium transition-all transform hover:scale-105 flex items-center justify-center gap-2"
                         >
-                            Book Appointment
+                            {t('hero.bookAppointment')}
                         </button>
                         <button
                             onClick={() => handleAction('/offers')}
                             className="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white rounded-full font-medium transition-all flex items-center justify-center gap-2"
                         >
-                            View Services <ArrowRight size={18} />
+                            {t('hero.viewServices')} <ArrowRight size={18} />
                         </button>
                     </div>
                 </motion.div>

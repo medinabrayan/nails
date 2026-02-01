@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import HeroSection from '../components/search/HeroSection';
@@ -76,6 +77,7 @@ const MOCK_PROFESSIONALS = [
 ];
 
 const SearchPage = () => {
+    const { t } = useTranslation();
     const [viewMode, setViewMode] = useState('both'); // 'list', 'map', 'both' (desktop default)
     const [searchParams, setSearchParams] = useSearchParams();
     const [isLocating, setIsLocating] = useState(false);
@@ -161,11 +163,11 @@ const SearchPage = () => {
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-2xl font-serif font-bold text-gray-900">
                         {locationQuery ? (
-                            <>Resultados para <span className="text-primary-600">
-                                {queryCoords ? "📍 Mi Ubicación" : `"${locationQuery}"`}
+                            <>{t('search.resultsFor')} <span className="text-primary-600">
+                                {queryCoords ? `📍 ${t('search.myLocation')}` : `"${locationQuery}"`}
                             </span></>
                         ) : (
-                            <>Resultados <span className="text-primary-600">cerca de ti</span></>
+                            <>{t('search.results')} <span className="text-primary-600">{t('search.nearYou')}</span></>
                         )}
                     </h2>
 
@@ -177,7 +179,7 @@ const SearchPage = () => {
                             className="p-2 bg-white border border-gray-200 rounded-lg text-primary-600 hover:bg-primary-50 transition-all flex items-center gap-2 text-sm font-medium disabled:opacity-50"
                         >
                             {isLocating ? <Loader2 size={18} className="animate-spin" /> : <Compass size={18} />}
-                            <span className="hidden sm:inline">Mi Ubicación</span>
+                            <span className="hidden sm:inline">{t('search.myLocation')}</span>
                         </button>
 
                         <div className="md:hidden bg-white border border-gray-200 rounded-lg p-1 flex">
@@ -209,10 +211,9 @@ const SearchPage = () => {
                                 <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
                                     <Search className="text-gray-300" size={40} />
                                 </div>
-                                <h3 className="text-2xl font-serif font-bold text-gray-900 mb-2">No se encontraron manicuristas</h3>
+                                <h3 className="text-2xl font-serif font-bold text-gray-900 mb-2">{t('search.noResults')}</h3>
                                 <p className="text-gray-500 max-w-sm mx-auto">
-                                    No pudimos encontrar profesionales en <span className="font-bold text-primary-600">{queryCoords ? "tu ubicación actual" : `"${locationQuery}"`}</span>.
-                                    Intenta buscar en una ciudad cercana o verifica la ortografía.
+                                    {t('search.noResultsDescription', { location: queryCoords ? t('search.myLocation') : `"${locationQuery}"` })}
                                 </p>
                             </div>
                         )}

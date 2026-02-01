@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, MapPin, CheckCircle, AlertCircle, XCircle, DollarSign, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { getAppointmentsByUser } from '../../../data/mockData';
 import { useAuth } from '../../../context/AuthContext';
 import { ReviewFormModal } from './ReviewForm';
 import { AnimatePresence } from 'framer-motion';
 
 const AppointmentHistory = () => {
+    const { t } = useTranslation();
     const { user } = useAuth();
     const [appointments, setAppointments] = useState([]);
     const [filter, setFilter] = useState('all'); // all, upcoming, past
@@ -75,8 +77,8 @@ const AppointmentHistory = () => {
             {/* Header Area */}
             <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-4xl font-serif font-bold text-secondary-900 mb-2">Mi Historial de Citas</h1>
-                    <p className="text-gray-500">Gestiona tus reservas y revisa tus tratamientos pasados</p>
+                    <h1 className="text-4xl font-serif font-bold text-secondary-900 mb-2">{t('appointmentHistory.title')}</h1>
+                    <p className="text-gray-500">{t('appointmentHistory.subtitle')}</p>
                 </div>
 
                 {/* Filter Tabs */}
@@ -90,7 +92,7 @@ const AppointmentHistory = () => {
                                 : 'text-gray-400 hover:text-secondary-900'
                                 }`}
                         >
-                            {f === 'all' ? 'Todas' : f === 'upcoming' ? 'Próximas' : 'Pasadas'}
+                            {f === 'all' ? t('appointmentHistory.filterAll') : f === 'upcoming' ? t('appointmentHistory.filterUpcoming') : t('appointmentHistory.filterPast')}
                         </button>
                     ))}
                 </div>
@@ -102,8 +104,8 @@ const AppointmentHistory = () => {
                     <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 text-gray-300">
                         <Calendar size={40} />
                     </div>
-                    <h3 className="text-2xl font-bold text-secondary-900 mb-2">No tienes citas registradas</h3>
-                    <p className="text-gray-500 max-w-sm mx-auto">Cuando agendes un servicio, aparecerá aquí para que puedas llevar un control.</p>
+                    <h3 className="text-2xl font-bold text-secondary-900 mb-2">{t('appointmentHistory.noAppointments')}</h3>
+                    <p className="text-gray-500 max-w-sm mx-auto">{t('appointmentHistory.noAppointmentsDescription')}</p>
                 </div>
             ) : (
                 <div className="space-y-6">
@@ -132,7 +134,7 @@ const AppointmentHistory = () => {
                                         <h3 className="text-2xl font-bold text-secondary-900">{appt.serviceName}</h3>
                                         <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border flex items-center gap-1.5 ${getStatusStyle(appt.status)}`}>
                                             {getStatusIcon(appt.status)}
-                                            {appt.status === 'confirmed' ? 'Confirmada' : appt.status === 'completed' ? 'Finalizada' : 'Cancelada'}
+                                            {appt.status === 'confirmed' ? t('appointmentHistory.statusConfirmed') : appt.status === 'completed' ? t('appointmentHistory.statusCompleted') : t('appointmentHistory.statusCancelled')}
                                         </span>
                                     </div>
                                     <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-gray-500 font-medium">
@@ -164,12 +166,12 @@ const AppointmentHistory = () => {
                                                     : 'bg-secondary-900 text-white hover:bg-secondary-800 shadow-secondary-900/10'
                                                 }`}
                                         >
-                                            {appt.reviewed ? 'Ya calificado' : 'Dejar Reseña'}
+                                            {appt.reviewed ? t('appointmentHistory.alreadyReviewed') : t('appointmentHistory.leaveReview')}
                                         </button>
                                     )}
                                     {appt.status === 'confirmed' && (
-                                        <button className="flex-1 lg:flex-initial px-8 py-3 border-2 border-red-50 text-red-500 rounded-2xl font-bold text-sm hover:bg-red-50 transition-all">
-                                            Cancelar
+<button className="flex-1 lg:flex-initial px-8 py-3 border-2 border-red-50 text-red-500 rounded-2xl font-bold text-sm hover:bg-red-50 transition-all">
+                                            {t('appointmentHistory.cancel')}
                                         </button>
                                     )}
                                     <button className="p-4 bg-gray-50 text-gray-400 rounded-2xl hover:bg-primary-50 hover:text-primary-500 transition-all group-hover:translate-x-1 transition-transform">

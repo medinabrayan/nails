@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
     Star, MapPin, Clock, Phone, Mail, Share2, Heart,
     Award, Calendar, CheckCircle, Instagram, Facebook, MessageCircle
@@ -14,7 +15,8 @@ import ReviewList from './ReviewList';
 const PublicProfile = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState('services'); // 'services', 'portfolio', 'reviews'
+    const { t } = useTranslation();
+    const [activeTab, setActiveTab] = useState('services');
     const [isFavorite, setIsFavorite] = useState(false);
 
     // Mock professional data - in real app, fetch based on id
@@ -55,10 +57,20 @@ const PublicProfile = () => {
     };
 
     const tabs = [
-        { id: 'services', label: 'Services & Pricing' },
-        { id: 'portfolio', label: 'Portfolio' },
-        { id: 'reviews', label: 'Reviews' }
+        { id: 'services', label: t('profile.tabs.servicesAndPricing') },
+        { id: 'portfolio', label: t('profile.tabs.portfolio') },
+        { id: 'reviews', label: t('profile.tabs.reviews') }
     ];
+
+    const dayKeys = {
+        monday: 'profile.days.monday',
+        tuesday: 'profile.days.tuesday',
+        wednesday: 'profile.days.wednesday',
+        thursday: 'profile.days.thursday',
+        friday: 'profile.days.friday',
+        saturday: 'profile.days.saturday',
+        sunday: 'profile.days.sunday'
+    };
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -68,7 +80,7 @@ const PublicProfile = () => {
             <div className="relative h-64 md:h-80 bg-gradient-to-r from-primary-400 to-primary-600 overflow-hidden">
                 <img
                     src={professional.coverImage}
-                    alt="Cover"
+                    alt={professional.name}
                     className="w-full h-full object-cover opacity-40"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
@@ -107,7 +119,7 @@ const PublicProfile = () => {
                                             <div className="flex items-center gap-1 bg-primary-50 px-3 py-1.5 rounded-lg">
                                                 <Star className="w-5 h-5 fill-primary-500 text-primary-500" />
                                                 <span className="font-bold text-gray-900">{professional.rating}</span>
-                                                <span className="text-gray-600">({professional.totalReviews} reviews)</span>
+                                                <span className="text-gray-600">({professional.totalReviews} {t('profile.reviews')})</span>
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-2">
@@ -136,7 +148,7 @@ const PublicProfile = () => {
                                         className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-xl font-semibold shadow-lg shadow-primary-200 hover:shadow-xl transition-all flex items-center gap-2"
                                     >
                                         <Calendar className="w-5 h-5" />
-                                        Book Appointment
+                                        {t('profile.bookNow')}
                                     </button>
                                 </div>
                             </div>
@@ -148,21 +160,21 @@ const PublicProfile = () => {
                                         <Award className="w-5 h-5 text-primary-600" />
                                         <p className="text-2xl font-bold text-gray-900">{professional.yearsExperience}</p>
                                     </div>
-                                    <p className="text-sm text-gray-600">Years Experience</p>
+                                    <p className="text-sm text-gray-600">{t('profile.yearsExperience')}</p>
                                 </div>
                                 <div className="text-center border-x border-gray-200">
                                     <div className="flex items-center justify-center gap-2 mb-1">
                                         <CheckCircle className="w-5 h-5 text-primary-600" />
                                         <p className="text-2xl font-bold text-gray-900">{professional.completedServices}</p>
                                     </div>
-                                    <p className="text-sm text-gray-600">Services Completed</p>
+                                    <p className="text-sm text-gray-600">{t('profile.servicesCompleted')}</p>
                                 </div>
                                 <div className="text-center">
                                     <div className="flex items-center justify-center gap-2 mb-1">
                                         <Star className="w-5 h-5 text-primary-600" />
                                         <p className="text-2xl font-bold text-gray-900">{professional.rating}</p>
                                     </div>
-                                    <p className="text-sm text-gray-600">Average Rating</p>
+                                    <p className="text-sm text-gray-600">{t('profile.averageRating')}</p>
                                 </div>
                             </div>
                         </div>
@@ -177,11 +189,11 @@ const PublicProfile = () => {
                     <div className="lg:col-span-1 space-y-6">
                         {/* About */}
                         <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
-                            <h3 className="text-xl font-serif font-bold text-gray-900 mb-4">About</h3>
+                            <h3 className="text-xl font-serif font-bold text-gray-900 mb-4">{t('profile.about')}</h3>
                             <p className="text-gray-700 leading-relaxed mb-4">{professional.bio}</p>
 
                             <div className="space-y-3 mb-6">
-                                <h4 className="font-semibold text-gray-900">Specialties</h4>
+                                <h4 className="font-semibold text-gray-900">{t('profile.specialties')}</h4>
                                 <div className="flex flex-wrap gap-2">
                                     {professional.specialties.map((specialty, index) => (
                                         <span
@@ -195,7 +207,7 @@ const PublicProfile = () => {
                             </div>
 
                             <div className="space-y-3">
-                                <h4 className="font-semibold text-gray-900">Certifications</h4>
+                                <h4 className="font-semibold text-gray-900">{t('profile.certifications')}</h4>
                                 {professional.certifications.map((cert, index) => (
                                     <div key={index} className="flex items-center gap-2 text-sm text-gray-700">
                                         <CheckCircle className="w-4 h-4 text-primary-600 flex-shrink-0" />
@@ -207,7 +219,7 @@ const PublicProfile = () => {
 
                         {/* Contact Info */}
                         <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
-                            <h3 className="text-xl font-serif font-bold text-gray-900 mb-4">Contact</h3>
+                            <h3 className="text-xl font-serif font-bold text-gray-900 mb-4">{t('profile.contact')}</h3>
                             <div className="space-y-3">
                                 <a href={`tel:${professional.phone}`} className="flex items-center gap-3 text-gray-700 hover:text-primary-600 transition-colors">
                                     <div className="p-2 bg-primary-50 rounded-lg">
@@ -230,7 +242,7 @@ const PublicProfile = () => {
                             </div>
 
                             <div className="mt-6 pt-6 border-t border-gray-100">
-                                <h4 className="font-semibold text-gray-900 mb-3">Social Media</h4>
+                                <h4 className="font-semibold text-gray-900 mb-3">{t('profile.socialMedia')}</h4>
                                 <div className="flex gap-3">
                                     <a href="#" className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 text-white rounded-xl hover:shadow-lg transition-all">
                                         <Instagram className="w-5 h-5" />
@@ -249,14 +261,14 @@ const PublicProfile = () => {
                         <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
                             <h3 className="text-xl font-serif font-bold text-gray-900 mb-4 flex items-center gap-2">
                                 <Clock className="w-5 h-5 text-primary-600" />
-                                Working Hours
+                                {t('profile.workingHours')}
                             </h3>
                             <div className="space-y-2">
                                 {Object.entries(professional.workingHours).map(([day, hours]) => (
                                     <div key={day} className="flex justify-between text-sm">
-                                        <span className="font-medium text-gray-700 capitalize">{day}</span>
+                                        <span className="font-medium text-gray-700">{t(dayKeys[day])}</span>
                                         <span className={hours === 'Closed' ? 'text-red-600' : 'text-gray-600'}>
-                                            {hours}
+                                            {hours === 'Closed' ? t('profile.days.closed') : hours}
                                         </span>
                                     </div>
                                 ))}

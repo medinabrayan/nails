@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import { Save, User, Mail, Phone, MapPin, Briefcase, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -20,6 +21,7 @@ const profileSchema = yup.object().shape({
 });
 
 const ProfileEdit = () => {
+    const { t } = useTranslation();
     const { user, updateUser } = useAuth();
     const navigate = useNavigate();
     const [showSuccess, setShowSuccess] = useState(false);
@@ -70,8 +72,8 @@ const ProfileEdit = () => {
         <div className="pb-12 max-w-4xl">
             {/* Header Area */}
             <div className="mb-10">
-                <h1 className="text-4xl font-serif font-bold text-secondary-900 mb-2">Editar Mi Perfil</h1>
-                <p className="text-gray-500">Actualiza tu información personal y profesional</p>
+                <h1 className="text-4xl font-serif font-bold text-secondary-900 mb-2">{t('profileEdit.title')}</h1>
+                <p className="text-gray-500">{t('profileEdit.subtitle')}</p>
             </div>
 
             {showSuccess && (
@@ -82,7 +84,7 @@ const ProfileEdit = () => {
                 >
                     <p className="text-green-700 font-bold flex items-center gap-2">
                         <span className="flex-shrink-0 w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs">✓</span>
-                        ¡Perfil actualizado con éxito!
+                        {t('profileEdit.successMessage')}
                     </p>
                 </motion.div>
             )}
@@ -94,11 +96,11 @@ const ProfileEdit = () => {
                         <div className="p-2 bg-primary-50 rounded-xl text-primary-500">
                             <User size={20} />
                         </div>
-                        Información Básica
+                        {t('profileEdit.basicInfo')}
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Nombre Completo</label>
+                            <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">{t('profileEdit.fullName')}</label>
                             <input
                                 {...register('name')}
                                 type="text"
@@ -107,7 +109,7 @@ const ProfileEdit = () => {
                             {errors.name && <p className="text-red-500 text-xs ml-1">{errors.name.message}</p>}
                         </div>
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Correo Electrónico</label>
+                            <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">{t('profileEdit.email')}</label>
                             <input
                                 {...register('email')}
                                 type="email"
@@ -116,7 +118,7 @@ const ProfileEdit = () => {
                             {errors.email && <p className="text-red-500 text-xs ml-1">{errors.email.message}</p>}
                         </div>
                         <div className="space-y-2">
-                            <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Teléfono</label>
+                            <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">{t('profileEdit.phone')}</label>
                             <input
                                 {...register('phone')}
                                 type="tel"
@@ -129,15 +131,15 @@ const ProfileEdit = () => {
                 {/* Professional Section */}
                 {user?.role === 'manicurist' && (
                     <div className="bg-white rounded-[2.5rem] shadow-sm border border-primary-50 p-8 md:p-10">
-                        <h2 className="text-xl font-bold text-secondary-900 mb-8 flex items-center gap-3">
+                    <h2 className="text-xl font-bold text-secondary-900 mb-8 flex items-center gap-3">
                             <div className="p-2 bg-primary-50 rounded-xl text-primary-500">
                                 <Briefcase size={20} />
                             </div>
-                            Información Profesional
+                            {t('profileEdit.professionalInfo')}
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                             <div className="space-y-2">
-                                <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Años de Experiencia</label>
+                                <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">{t('profileEdit.yearsExperience')}</label>
                                 <input
                                     {...register('experience')}
                                     type="number"
@@ -145,7 +147,7 @@ const ProfileEdit = () => {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Ubicación / Ciudad</label>
+                                <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">{t('profileEdit.location')}</label>
                                 <input
                                     {...register('location')}
                                     type="text"
@@ -155,20 +157,20 @@ const ProfileEdit = () => {
                         </div>
                         <div className="space-y-8">
                             <div className="space-y-2">
-                                <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Especialidades (separadas por coma)</label>
+                                <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">{t('profileEdit.specialties')}</label>
                                 <input
                                     {...register('specialties')}
                                     type="text"
-                                    placeholder="Nail Art, Gelish, Acrílico..."
+                                    placeholder={t('profileEdit.specialtiesPlaceholder')}
                                     className="w-full px-6 py-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-primary-500/20 focus:bg-white transition-all outline-none font-medium"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Biografía</label>
+                                <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">{t('profileEdit.bio')}</label>
                                 <textarea
                                     {...register('bio')}
                                     rows="4"
-                                    placeholder="Cuéntale a tus clientes sobre tu experiencia y estilo..."
+                                    placeholder={t('profileEdit.bioPlaceholder')}
                                     className="w-full px-6 py-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-primary-500/20 focus:bg-white transition-all outline-none font-medium resize-none"
                                 />
                             </div>
@@ -178,15 +180,15 @@ const ProfileEdit = () => {
 
                 {user?.role === 'client' && (
                     <div className="bg-white rounded-[2.5rem] shadow-sm border border-primary-50 p-8 md:p-10">
-                        <h2 className="text-xl font-bold text-secondary-900 mb-8 flex items-center gap-3">
+                    <h2 className="text-xl font-bold text-secondary-900 mb-8 flex items-center gap-3">
                             <div className="p-2 bg-primary-50 rounded-xl text-primary-500">
                                 <Heart size={20} />
                             </div>
-                            Preferencias de Cliente
+                            {t('profileEdit.clientPreferences')}
                         </h2>
                         <div className="space-y-8">
                             <div className="space-y-2">
-                                <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Servicios Favoritos</label>
+                                <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">{t('profileEdit.favoriteServices')}</label>
                                 <input
                                     {...register('favoriteServices')}
                                     type="text"
@@ -194,7 +196,7 @@ const ProfileEdit = () => {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">Notas y Preferencias</label>
+                                <label className="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">{t('profileEdit.preferences')}</label>
                                 <textarea
                                     {...register('preferences')}
                                     rows="4"
@@ -206,12 +208,12 @@ const ProfileEdit = () => {
                 )}
 
                 <div className="flex justify-end gap-4">
-                    <button
+<button
                         type="button"
                         onClick={() => navigate('/dashboard')}
                         className="px-8 py-4 text-gray-400 font-bold hover:text-secondary-900 transition-colors"
                     >
-                        Cancelar
+                        {t('profileEdit.cancel')}
                     </button>
                     <button
                         type="submit"
@@ -219,7 +221,7 @@ const ProfileEdit = () => {
                         className="bg-primary-500 text-white px-12 py-4 rounded-2xl font-bold hover:bg-primary-600 transition-all shadow-lg shadow-primary-500/25 flex items-center gap-2 disabled:opacity-50"
                     >
                         <Save size={20} />
-                        {isSubmitting ? 'Guardando...' : 'Guardar Cambios'}
+                        {isSubmitting ? t('profileEdit.saving') : t('profileEdit.saveChanges')}
                     </button>
                 </div>
             </form>

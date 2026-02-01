@@ -1,9 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Star, MapPin, Clock } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const ProfessionalCard = ({ professional }) => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     // Default data if not provided
     const {
@@ -54,27 +56,27 @@ const ProfessionalCard = ({ professional }) => {
                         </div>
                     </div>
 
-                    <div className="space-y-1 mt-3"> {/* Ajuste de espacio */}
+                    <div className="space-y-1 mt-3">
                         <div className="flex items-center gap-2 text-gray-500 text-sm">
                             <MapPin className="w-4 h-4 flex-shrink-0" />
-                            <span className="truncate">{distance} away</span> {/* Se añade truncate para texto largo */}
+                            <span className="truncate">{distance} {t('search.away')}</span>
                         </div>
                         <div className="flex items-center gap-2 text-gray-500 text-sm">
                             <Clock className="w-4 h-4 flex-shrink-0" />
-                            <span>Next slot: <span className="text-green-600 font-medium">{nextAvailable}</span></span>
+                            <span>{t('search.nextSlot')}: <span className="text-green-600 font-medium">{nextAvailable}</span></span>
                         </div>
                     </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-gray-100 flex gap-2 flex-shrink-0"> {/* Se añade flex-shrink-0 para que los botones no se encojan */}
+                <div className="mt-4 pt-3 border-t border-gray-100 flex gap-2 flex-shrink-0">
                     <button className="flex-1 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium text-xs transition-colors">
-                        Book Now
+                        {t('professionalCard.bookNow')}
                     </button>
                     <button
                         onClick={handleViewProfile}
                         className="px-3 py-2 border border-gray-200 hover:bg-gray-50 text-gray-700 rounded-lg font-medium text-sm transition-colors"
                     >
-                        View Profile
+                        {t('professionalCard.viewProfile')}
                     </button>
                 </div>
             </div>

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Search, Filter, Clock, DollarSign, Star, Calendar, MapPin, ChevronRight, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getAllServices, getServiceCategories, getApprovedManicurists, getScheduleByUser } from '../../../data/mockData';
 import ProfessionalScheduleModal from './ProfessionalScheduleModal';
 
 const AvailableOffers = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [services, setServices] = useState([]);
     const [filteredServices, setFilteredServices] = useState([]);
@@ -19,9 +21,9 @@ const AvailableOffers = () => {
     const [profSchedule, setProfSchedule] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    useEffect(() => {
+            useEffect(() => {
         const allServices = getAllServices();
-        const cats = ['All', ...getServiceCategories()];
+        const cats = [t('search.allServices'), ...getServiceCategories()];
         const pros = getApprovedManicurists();
 
         setServices(allServices);
@@ -40,7 +42,7 @@ const AvailableOffers = () => {
             );
         }
 
-        if (selectedCategory !== 'All') {
+        if (selectedCategory !== t('search.allServices')) {
             result = result.filter(s => s.category === selectedCategory);
         }
 
@@ -73,8 +75,8 @@ const AvailableOffers = () => {
         <div className="pb-12">
             {/* Header Area */}
             <div className="mb-10">
-                <h1 className="text-4xl font-serif font-bold text-secondary-900 mb-2">Explorar Ofertas</h1>
-                <p className="text-gray-500">Descubre los mejores servicios y encuentra a tu profesional ideal</p>
+                <h1 className="text-4xl font-serif font-bold text-secondary-900 mb-2">{t('availableOffers.title')}</h1>
+                <p className="text-gray-500">{t('availableOffers.subtitle')}</p>
             </div>
 
             {/* Controls */}
@@ -83,7 +85,7 @@ const AvailableOffers = () => {
                     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                     <input
                         type="text"
-                        placeholder="Buscar por servicio o descripción..."
+                        placeholder={t('availableOffers.searchPlaceholder')}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full pl-12 pr-4 py-3 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-primary-500/20 focus:bg-white transition-all outline-none"
@@ -109,8 +111,8 @@ const AvailableOffers = () => {
             {filteredServices.length === 0 ? (
                 <div className="bg-white rounded-[3rem] shadow-sm p-20 text-center border border-primary-50">
                     <Sparkles className="mx-auto text-gray-200 mb-6" size={64} />
-                    <h3 className="text-2xl font-bold text-secondary-900 mb-2">No se encontraron ofertas</h3>
-                    <p className="text-gray-500 max-w-sm mx-auto">Prueba ajustando tus filtros o términos de búsqueda</p>
+                    <h3 className="text-2xl font-bold text-secondary-900 mb-2">{t('availableOffers.noResults')}</h3>
+                    <p className="text-gray-500 max-w-sm mx-auto">{t('availableOffers.noResultsDescription')}</p>
                 </div>
             ) : (
                 <motion.div
@@ -152,12 +154,12 @@ const AvailableOffers = () => {
                                             </h3>
                                             <div className="flex items-center gap-1.5 text-gray-400 text-sm">
                                                 <MapPin size={14} />
-                                                {prof?.location || 'Ubicación no disponible'}
+                                                {prof?.location || t('availableOffers.locationNotAvailable')}
                                             </div>
                                         </div>
                                         <div className="text-right">
                                             <span className="text-2xl font-bold text-secondary-900">${service.price}</span>
-                                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-none">Copa</p>
+                                            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest leading-none">{t('availableOffers.currency')}</p>
                                         </div>
                                     </div>
 
@@ -171,7 +173,7 @@ const AvailableOffers = () => {
                                                 {prof?.name?.charAt(0) || 'P'}
                                             </div>
                                             <div>
-                                                <p className="text-xs text-gray-400 font-bold uppercase tracking-widest leading-none mb-1">Profesional</p>
+                                                <p className="text-xs text-gray-400 font-bold uppercase tracking-widest leading-none mb-1">{t('availableOffers.professional')}</p>
                                                 <p className="text-sm font-bold text-secondary-900">{prof?.name}</p>
                                             </div>
                                         </div>
@@ -184,18 +186,18 @@ const AvailableOffers = () => {
                                     </div>
 
                                     <div className="grid grid-cols-2 gap-4 mt-8">
-                                        <button
+<button
                                             onClick={() => handleViewSchedule(service.userId)}
                                             className="flex items-center justify-center gap-2 px-4 py-3 bg-secondary-50 text-secondary-900 rounded-2xl font-bold text-sm hover:bg-secondary-100 transition-all border border-secondary-100"
                                         >
                                             <Calendar size={16} />
-                                            Horarios
+                                            {t('availableOffers.schedule')}
                                         </button>
                                         <button
                                             onClick={() => navigate(`/booking/${service.userId}/${service.id}`)}
                                             className="flex items-center justify-center gap-2 px-4 py-3 bg-primary-500 text-white rounded-2xl font-bold text-sm hover:bg-primary-600 transition-all shadow-lg shadow-primary-500/25"
                                         >
-                                            Agendar
+                                            {t('availableOffers.book')}
                                             <ChevronRight size={16} />
                                         </button>
                                     </div>

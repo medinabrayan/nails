@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Search, Filter, Star, DollarSign } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const SearchBar = ({ onSearch }) => {
+    const { t } = useTranslation();
     const [query, setQuery] = useState('');
     const [filters, setFilters] = useState({
         serviceType: '',
@@ -27,7 +29,7 @@ const SearchBar = ({ onSearch }) => {
                         <Search className="text-gray-400 w-5 h-5 mr-3" />
                         <input
                             type="text"
-                            placeholder="Find services (e.g., Gel Manicure) or specialists..."
+                            placeholder={t('search.searchPlaceholder')}
                             className="w-full bg-transparent border-none focus:ring-0 text-gray-700 placeholder-gray-400"
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
@@ -45,7 +47,7 @@ const SearchBar = ({ onSearch }) => {
                         }`}
                     >
                         <Filter size={18} />
-                        <span className="hidden md:inline">Filters</span>
+                        <span className="hidden md:inline">{t('search.filters')}</span>
                     </button>
 
                     {/* Search Button */}
@@ -53,7 +55,7 @@ const SearchBar = ({ onSearch }) => {
                         type="submit"
                         className="px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-medium shadow-lg shadow-primary-600/30 transition-all transform hover:scale-[1.02] active:scale-95"
                     >
-                        Search
+                        {t('search.search')}
                     </button>
                 </div>
 
@@ -63,30 +65,30 @@ const SearchBar = ({ onSearch }) => {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {/* Service Type */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700">Service Type</label>
+                                <label className="text-sm font-medium text-gray-700">{t('search.serviceType')}</label>
                                 <select
                                     className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-100 focus:border-primary-300 outline-none transition-all"
                                     value={filters.serviceType}
                                     onChange={(e) => setFilters({ ...filters, serviceType: e.target.value })}
                                 >
-                                    <option value="">All Services</option>
-                                    <option value="manicure">Manicure</option>
-                                    <option value="pedicure">Pedicure</option>
-                                    <option value="nail-art">Nail Art</option>
-                                    <option value="extensions">Extensions</option>
-                                    <option value="removal">Removal</option>
+                                    <option value="">{t('search.allServices')}</option>
+                                    <option value="manicure">{t('search.manicure')}</option>
+                                    <option value="pedicure">{t('search.pedicure')}</option>
+                                    <option value="nail-art">{t('search.nailArt')}</option>
+                                    <option value="extensions">{t('search.extensions')}</option>
+                                    <option value="removal">{t('search.removal')}</option>
                                 </select>
                             </div>
 
                             {/* Price Range */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700">Price Range</label>
+                                <label className="text-sm font-medium text-gray-700">{t('search.priceRange')}</label>
                                 <div className="flex items-center gap-2">
                                     <div className="relative flex-1">
                                         <DollarSign className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                                         <input
                                             type="number"
-                                            placeholder="Min"
+                                            placeholder={t('search.min')}
                                             className="w-full pl-8 p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-100 outline-none"
                                             value={filters.minPrice}
                                             onChange={(e) => setFilters({ ...filters, minPrice: e.target.value })}
@@ -97,7 +99,7 @@ const SearchBar = ({ onSearch }) => {
                                         <DollarSign className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                                         <input
                                             type="number"
-                                            placeholder="Max"
+                                            placeholder={t('search.max')}
                                             className="w-full pl-8 p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-100 outline-none"
                                             value={filters.maxPrice}
                                             onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
@@ -108,7 +110,7 @@ const SearchBar = ({ onSearch }) => {
 
                             {/* Rating */}
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700">Minimum Rating</label>
+                                <label className="text-sm font-medium text-gray-700">{t('search.minRating')}</label>
                                 <div className="flex gap-2">
                                     {[4, 3, 2, 1].map((star) => (
                                         <button
