@@ -39,6 +39,32 @@
       "subtitle": "Browse through our portfolio of stunning nail art and transformations.",
       "viewDesign": "View Design"
     },
+    "services": {
+      "title": "Our Services",
+      "subtitle": "We offer a wide range of premium nail care services designed to pamper you and enhance your natural beauty.",
+      "items": {
+        "manicure": {
+          "title": "Manicure",
+          "description": "Classic, Gel, and Spa manicures tailored to your needs. Includes shaping, cuticle care, and massage.",
+          "price": "from $25"
+        },
+        "pedicure": {
+          "title": "Pedicure",
+          "description": "Relaxing foot treatments to rejuvenate tired feet. Includes exfoliation, mask, and polish.",
+          "price": "from $35"
+        },
+        "nailArt": {
+          "title": "Nail Art",
+          "description": "Custom designs from simple elegance to intricate masterpieces. Bring your inspiration or let us create.",
+          "price": "from $5/nail"
+        },
+        "extensions": {
+          "title": "Extensions",
+          "description": "Acrylic, Gel, and Dip Powder extensions for length and strength. Natural looking and durable.",
+          "price": "from $50"
+        }
+      }
+    },
     "testimonials": {
       "title": "Client Love",
       "subtitle": "What our satisfied clients say",

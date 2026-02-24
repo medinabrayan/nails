@@ -39,6 +39,32 @@
       "subtitle": "Explore nosso portfólio de arte de unhas impressionante e transformações.",
       "viewDesign": "Ver Design"
     },
+    "services": {
+      "title": "Nossos Serviços",
+      "subtitle": "Oferecemos uma ampla gama de serviços premium de cuidado de unhas projetados para mimar você e realçar sua beleza natural.",
+      "items": {
+        "manicure": {
+          "title": "Manicure",
+          "description": "Manicures clássicas, de gel e spa adaptadas às suas necessidades. Inclui modelagem, cuidado de cutículas e massagem.",
+          "price": "a partir de $25"
+        },
+        "pedicure": {
+          "title": "Pedicure",
+          "description": "Tratamentos relaxantes para os pés para rejuvenescer pés cansados. Inclui esfoliação, máscara e polimento.",
+          "price": "a partir de $35"
+        },
+        "nailArt": {
+          "title": "Nail Art",
+          "description": "Designs personalizados, desde a elegância simples até obras-primas intrincadas. Traga sua inspiração ou deixe-nos criar.",
+          "price": "a partir de $5/unha"
+        },
+        "extensions": {
+          "title": "Extensões",
+          "description": "Extensões de acrílico, gel e dip powder para comprimento e força. De aspecto natural e duradouro.",
+          "price": "a partir de $50"
+        }
+      }
+    },
     "testimonials": {
       "title": "Amor dos Clientes",
       "subtitle": "O que nossos clientes satisfeitos dizem",

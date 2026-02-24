@@ -1,43 +1,48 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Palette, Scissors, Hand } from 'lucide-react';
-
-const services = [
-    {
-        icon: <Hand size={32} />,
-        title: "Manicure",
-        description: "Classic, Gel, and Spa manicures tailored to your needs. Includes shaping, cuticle care, and massage.",
-        price: "from $25"
-    },
-    {
-        icon: <Scissors size={32} />,
-        title: "Pedicure",
-        description: "Relaxing foot treatments to rejuvenate tired feet. Includes exfoliation, mask, and polish.",
-        price: "from $35"
-    },
-    {
-        icon: <Palette size={32} />,
-        title: "Nail Art",
-        description: "Custom designs from simple elegance to intricate masterpieces. Bring your inspiration or let us create.",
-        price: "from $5/nail"
-    },
-    {
-        icon: <Sparkles size={32} />,
-        title: "Extensions",
-        description: "Acrylic, Gel, and Dip Powder extensions for length and strength. Natural looking and durable.",
-        price: "from $50"
-    }
-];
+import { useTranslation } from 'react-i18next';
 
 const Services = () => {
+    const { t } = useTranslation();
+
+    const services = [
+        {
+            icon: <Hand size={32} />,
+            title: t('landing.services.items.manicure.title'),
+            description: t('landing.services.items.manicure.description'),
+            price: t('landing.services.items.manicure.price')
+        },
+        {
+            icon: <Scissors size={32} />,
+            title: t('landing.services.items.pedicure.title'),
+            description: t('landing.services.items.pedicure.description'),
+            price: t('landing.services.items.pedicure.price')
+        },
+        {
+            icon: <Palette size={32} />,
+            title: t('landing.services.items.nailArt.title'),
+            description: t('landing.services.items.nailArt.description'),
+            price: t('landing.services.items.nailArt.price')
+        },
+        {
+            icon: <Sparkles size={32} />,
+            title: t('landing.services.items.extensions.title'),
+            description: t('landing.services.items.extensions.description'),
+            price: t('landing.services.items.extensions.price')
+        }
+    ];
+
     return (
         <section id="services" className="py-20 bg-white">
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-serif font-bold text-secondary-900 mb-4">Our Services</h2>
+                    <h2 className="text-3xl md:text-4xl font-serif font-bold text-secondary-900 mb-4">
+                        {t('landing.services.title')}
+                    </h2>
                     <div className="w-20 h-1 bg-primary-400 mx-auto rounded-full"></div>
                     <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-                        We offer a wide range of premium nail care services designed to pamper you and enhance your natural beauty.
+                        {t('landing.services.subtitle')}
                     </p>
                 </div>
 
