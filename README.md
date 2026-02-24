@@ -1,4 +1,4 @@
-# 💅 Nails Studio - Plataforma de Reservas de Uñas
+# 💅 NailConnect - Plataforma de Reservas de Uñas
 
 <div align="center">
 

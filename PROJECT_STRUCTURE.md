@@ -1,4 +1,4 @@
-# Nail Salon Application - Project Structure
+# NailConnect Salon Application - Project Structure
 
 ## 📁 Organized Architecture
 
