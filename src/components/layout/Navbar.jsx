@@ -31,7 +31,7 @@ const Navbar = () => {
         <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-md py-2' : 'bg-transparent py-4'}`}>
             <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
                 <a href="#" className="text-2xl font-serif font-bold text-primary-700">
-                    Luxe<span className="text-secondary-900">Nails</span>
+                    Nail<span className="text-secondary-900">Connect</span>
                 </a>
 
                 {/* Desktop Menu */}

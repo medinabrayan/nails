@@ -10,7 +10,7 @@ const Footer = () => {
             <div className="container mx-auto px-4 md:px-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                     <div>
-                        <h3 className="text-2xl font-serif font-bold text-primary-300 mb-6">LuxeNails</h3>
+                        <h3 className="text-2xl font-serif font-bold text-primary-300 mb-6">NailConnect</h3>
                         <p className="text-gray-400 mb-6">
                             {t('footer.description')}
                         </p>
@@ -44,14 +44,14 @@ const Footer = () => {
                             </li>
                             <li className="flex items-center gap-3 text-gray-400">
                                 <Mail size={20} className="text-primary-400" />
-                                <span>hello@luxenails.com</span>
+                                <span>hello@nailconnect.com</span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
                 <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-                    <p>&copy; {new Date().getFullYear()} LuxeNails. {t('footer.allRightsReserved')}.</p>
+                    <p>&copy; {new Date().getFullYear()} NailConnect. {t('footer.allRightsReserved')}.</p>
                 </div>
             </div>
         </footer>
